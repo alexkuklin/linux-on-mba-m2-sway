@@ -229,6 +229,7 @@ bindsym $mod+r mode "resize"
 #
 # Status Bar:
 exec_always pkill -x waybar; waybar
+exec_always pkill -x ssh-agent; eval $(ssh-agent) && systemctl --user set-environment SSH_AUTH_SOCK=$SSH_AUTH_SOCK
 exec_always pkill -x swaync; swaync
 exec_always pkill -x xfce-polkit; /usr/libexec/xfce-polkit
 exec_always pkill -x nm-applet; nm-applet --indicator
