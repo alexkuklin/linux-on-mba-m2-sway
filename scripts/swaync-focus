@@ -1,0 +1,4 @@
+#!/bin/bash
+# Try to focus window by app_id (Wayland native), fall back to class (XWayland)
+swaymsg "[app_id=\"(?i)${SWAYNC_APP_NAME}\"] focus" 2>/dev/null || \
+swaymsg "[class=\"(?i)${SWAYNC_APP_NAME}\"] focus" 2>/dev/null
