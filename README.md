@@ -8,7 +8,8 @@ sudo dnf install kitty waybar network-manager-applet pasystray pavucontrol \
                  greetd tuigreet swaylock swayidle \
                  wofi slurp wev \
                  xfce-polkit cliphist \
-                 fuse fuse-libs squashfs-tools
+                 fuse fuse-libs squashfs-tools \
+                 openssh-askpass
 ```
 
 ---
