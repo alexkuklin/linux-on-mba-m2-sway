@@ -230,6 +230,10 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 exec_always pkill -x waybar; waybar
 exec_always pkill -x ssh-agent; eval $(ssh-agent) && systemctl --user set-environment SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+exec_always gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+exec_always gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+exec_always gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono 11'
+exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec_always pkill -x swaync; swaync
 exec_always pkill -x xfce-polkit; /usr/libexec/xfce-polkit
 exec_always pkill -x nm-applet; nm-applet --indicator

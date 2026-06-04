@@ -9,7 +9,8 @@ sudo dnf install kitty waybar network-manager-applet pasystray pavucontrol \
                  wofi slurp wev \
                  xfce-polkit cliphist \
                  fuse fuse-libs squashfs-tools \
-                 openssh-askpass
+                 openssh-askpass \
+                 jetbrains-mono-fonts-all adw-gtk3-theme papirus-icon-theme
 ```
 
 ---
@@ -165,6 +166,16 @@ Started via `exec_always` in `~/.config/sway/config` (pkill before each to avoid
 
 Volume/brightness changes show a progress bar overlay via `wob`.
 Media keys control any MPRIS-compatible player via `playerctl`.
+
+## Fonts & GTK theme
+
+- **Font:** JetBrains Mono 11 — used in Kitty, Waybar, and GTK apps
+- **GTK theme:** adw-gtk3-dark — dark Adwaita for GTK3/4 apps
+- **Icon theme:** Papirus-Dark
+
+Config files: `~/.config/gtk-3.0/settings.ini`, `~/.config/gtk-4.0/settings.ini`
+
+Applied via `gsettings` on Sway startup for apps that read dconf.
 
 ## Screen lock — swaylock + swayidle
 
