@@ -227,18 +227,26 @@ bindsym $mod+r mode "resize"
     bindsym ctrl+$mod+Shift+4 exec grim -g "$(slurp)" - | wl-copy
 
 #
-# Status Bar:
+# Status Bar and applets:
+# exec runs once on startup (after compositor ready), exec_always handles reloads
+exec sleep 2 && waybar
+exec sleep 2 && swaync
+exec sleep 2 && nm-applet --indicator
+exec sleep 2 && /usr/libexec/xfce-polkit
+exec sleep 2 && pasystray
+exec sleep 2 && blueman-applet
+exec sleep 2 && wl-paste --watch cliphist store
+
 exec_always pkill -x waybar; waybar
-exec_always pkill -x ssh-agent; eval $(ssh-agent) && systemctl --user set-environment SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-exec_always gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-exec_always gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-exec_always gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono 11'
-exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec_always pkill -x swaync; swaync
 exec_always pkill -x xfce-polkit; /usr/libexec/xfce-polkit
 exec_always pkill -x nm-applet; nm-applet --indicator
 exec_always pkill -x wl-paste; wl-paste --watch cliphist store
 exec_always pkill -x pasystray; pasystray
 exec_always pkill -x blueman-applet; blueman-applet
+exec_always gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+exec_always gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+exec_always gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono 11'
+exec_always gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 include /etc/sway/config.d/*

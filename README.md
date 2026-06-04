@@ -226,11 +226,11 @@ Replaces GDM with a minimal TUI login screen.
 vt = 1
 
 [default_session]
-command = "tuigreet --time --remember --cmd 'dbus-run-session sway'"
+command = "tuigreet --time --remember --cmd /home/alexkuklin/.local/bin/start-sway"
 user = "greetd"
 ```
 
-`dbus-run-session` ensures D-Bus session is available so tray applets start correctly on boot.
+Uses a startup script `~/.local/bin/start-sway` that waits for the systemd user D-Bus socket before launching Sway, ensuring tray applets start correctly on boot. Sway config uses `exec sleep 2 && <applet>` for first boot and `exec_always pkill -x <applet>; <applet>` for config reloads.
 
 ```bash
 sudo systemctl disable gdm
@@ -251,6 +251,33 @@ sudo dnf autoremove
 
 Note: `NetworkManager` is protected separately and remains untouched.
 `blueman` may be caught by autoremove — reinstall if Bluetooth applet is missing: `sudo dnf install blueman`
+
+## SSH agent
+
+Managed via systemd user service for reliable startup and predictable socket path.
+
+`~/.config/systemd/user/ssh-agent.service`:
+```ini
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+[Install]
+WantedBy=default.target
+```
+
+```bash
+systemctl --user enable --now ssh-agent.service
+```
+
+`~/.bashrc` and `~/.bash_profile`:
+```bash
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+```
 
 ## Hostname
 
