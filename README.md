@@ -252,6 +252,32 @@ sudo dnf autoremove
 Note: `NetworkManager` is protected separately and remains untouched.
 `blueman` may be caught by autoremove — reinstall if Bluetooth applet is missing: `sudo dnf install blueman`
 
+## Hostname
+
+Set static hostname to prevent IPv6 DHCP from overriding it:
+
+```bash
+sudo hostnamectl set-hostname mba
+```
+
+`/etc/NetworkManager/conf.d/no-hostname.conf`:
+```ini
+[main]
+hostname-mode=none
+```
+
+## WireGuard
+
+Keypair stored in `/etc/wireguard/private.key` and `/etc/wireguard/public.key`.
+Config at `/etc/wireguard/wg0.conf` — address `192.168.10.7/24`.
+
+```bash
+sudo wg-quick up wg0       # connect
+sudo wg-quick down wg0     # disconnect
+sudo wg show               # status
+sudo systemctl enable wg-quick@wg0  # auto-connect on boot
+```
+
 ## Power button
 
 Short press: ignored (prevents accidental shutdown).
