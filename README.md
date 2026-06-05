@@ -305,16 +305,25 @@ sudo wg show               # status
 sudo systemctl enable wg-quick@wg0  # auto-connect on boot
 ```
 
-## Power button
+## Power button & lid
 
 Short press: ignored (prevents accidental shutdown).
 Long press: poweroff.
+Lid close: no suspend — network and processes stay running.
 
 `/etc/systemd/logind.conf.d/power-key.conf`:
 ```ini
 [Login]
 HandlePowerKey=ignore
 HandlePowerKeyLongPress=poweroff
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+HandleLidSwitchDocked=ignore
+```
+
+Reload config without killing the session:
+```bash
+sudo systemctl kill -s HUP systemd-logind
 ```
 
 ## Sway keybinding changes from defaults
