@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "network", "battery", "custom/notification", "tray"],
+    "modules-right": ["sway/language", "cpu", "memory", "pulseaudio", "network", "battery", "custom/notification", "tray"],
 
     "sway/workspaces": {
         "disable-scroll": true
@@ -24,6 +24,11 @@
         },
         "format": "BAT {capacity}%",
         "format-charging": "BAT+ {capacity}%"
+    },
+
+    "sway/language": {
+        "format": "{}",
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
 
     "cpu": {

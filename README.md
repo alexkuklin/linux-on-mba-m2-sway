@@ -144,12 +144,33 @@ Tap gestures:
 `~/.config/waybar/config` — modules:
 - **Left:** workspaces, mode indicator
 - **Center:** date/time
-- **Right:** `CPU x%`, `RAM x.xG`, `VOL x%`, network + IP (click → nm-connection-editor), `BAT x%`, notifications, tray
+- **Right:** keyboard layout, `CPU x%`, `RAM x.xG`, `VOL x%`, network + IP (click → nm-connection-editor), `BAT x%`, notifications, tray
 
 `~/.config/waybar/style.css` — dark Catppuccin-inspired theme.
 
 Notification bell: left-click toggles swaync panel, right-click toggles Do Not Disturb.
 Battery shows `BAT+` when charging.
+
+## Printing
+
+CUPS with IPP Everywhere (driverless). Xerox WorkCentre 3025 added at `192.168.3.51` (accessible via WireGuard).
+
+```bash
+sudo lpadmin -p xerox-wc3025 -E -v ipp://192.168.3.51/ipp/print -m everywhere -D "Xerox WorkCentre 3025"
+sudo lpoptions -d xerox-wc3025
+```
+
+GUI: `system-config-printer` or CUPS web UI at `http://localhost:631`.
+
+## Bluetooth
+
+Chip: BCM4377 (`hci_bcm4377` driver). Occasionally gets stuck after resume or reboot — reset with:
+
+```bash
+bt-reset
+```
+
+Script at `~/.local/bin/bt-reset` — reloads the kernel module and powers on the adapter.
 
 ## System tray applets
 

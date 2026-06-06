@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo modprobe -r hci_bcm4377 && sleep 2 && sudo modprobe hci_bcm4377 && sleep 2 && sudo btmgmt power on
