@@ -317,14 +317,26 @@ hostname-mode=none
 ## WireGuard
 
 Keypair stored in `/etc/wireguard/private.key` and `/etc/wireguard/public.key`.
-Config at `/etc/wireguard/wg0.conf` — address `192.168.10.7/24`.
+
+Two interfaces:
+- `wg0` — split tunnel (specific subnets only), address `192.168.10.7/24`
+- `wg1` — full tunnel (default route via VPN), same address
 
 ```bash
-sudo wg-quick up wg0       # connect
-sudo wg-quick down wg0     # disconnect
+sudo wg-quick up wg1       # connect (full tunnel)
+sudo wg-quick down wg1     # disconnect
 sudo wg show               # status
-sudo systemctl enable wg-quick@wg0  # auto-connect on boot
+sudo systemctl enable wg-quick@wg1  # auto-connect on boot
 ```
+
+### Full tunnel routing (wg1)
+
+wg-quick's automatic default route setup is unreliable — handled explicitly via `/etc/wireguard/wg1-routes.sh` called from `PostUp`/`PreDown` in `wg1.conf`:
+
+- On up: resolves endpoint hostname, adds a host route for it via the current WiFi gateway (prevents loop), then adds `default dev wg1`
+- On down: removes both routes cleanly
+
+`Table = off` in `[Interface]` disables wg-quick's own policy routing so the script has full control.
 
 ## Power button & lid
 
